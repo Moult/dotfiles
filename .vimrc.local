@@ -1,0 +1,74 @@
+set nospell
+set nocompatible
+set autoindent
+set smartindent
+set incsearch
+filetype plugin on
+set ignorecase
+set smartcase
+set nosm
+colorscheme wombat
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=80
+filetype indent on
+map gt :tabnext<CR>
+map gb :tabprev<CR>
+nmap <C-Tab> :tabnext<CR>
+nmap <C-S-Tab> :tabprev<CR>
+nmap <C-t> :tabnew<CR>
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+nnoremap <Leader>w :tabclose<CR>
+set wrap
+" Reset these defaults as some plugin overwrites them
+map H H
+map L L
+map M M
+set scroll=5
+syntax on
+filetype on
+au BufNewFile,BufRead *.mustache set filetype=html
+au BufNewFile,BufRead *.styl set filetype=css
+
+
+" Set tabline to only show filenames
+set tabline=%!MyTabLine()
+
+function MyTabLine()
+  let s=''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    let s .= '%' . (i + 1) . 'T'
+    let s .= '%{MyTabLabel(' . (i + 1) . ')} '
+  endfor
+
+  let s .= '%#TabLineFill#%T'
+
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999Xclose'
+  endif
+
+  return s
+endfunction
+
+function MyTabLabel(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let label = bufname(buflist[winnr - 1])
+  return fnamemodify(label, ":t")
+endfunction
