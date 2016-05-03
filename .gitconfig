@@ -1,0 +1,28 @@
+[user]
+	name = Dion Moult
+	email = dion@thinkmoult.com
+[core]
+	editor = vim
+	autocrlf = input
+[color]
+	pager = true
+	ui = auto
+[alias]
+    c = commit
+    s = status
+    ba = branch -a -v
+    lga = log --graph --pretty=oneline --abbrev-commit --decorate --all
+    ds = diff --staged
+    d = diff
+    co = checkout
+    a = add
+[diff]
+	tool = gvimdiff
+[merge]
+	tool = gvimdiff
+[gui]
+	historybrowser = gitk
+[cola]
+	fontdiff = Liberation Mono,7,-1,5,50,0,0,0,0,0
+[push]
+	default = simple
